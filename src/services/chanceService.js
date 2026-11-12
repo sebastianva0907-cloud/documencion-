@@ -14,6 +14,12 @@ function permutaciones(numero) {
   return resultado;
 }
 
+/**
+ * Valida una apuesta de chance y devuelve sus campos normalizados.
+ * @param {{numero: string, modalidad?: string, valor: number}} apuesta Datos de la apuesta.
+ * @returns {{numero: string, cifras: number, modalidad: string, valor: number}}
+ * @throws {AppError} Si el número, modalidad o valor incumple las reglas configuradas.
+ */
 function validarApuesta(apuesta) {
   const { numero, modalidad = 'DIRECTO', valor } = apuesta || {};
 

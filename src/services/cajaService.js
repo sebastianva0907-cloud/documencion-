@@ -2,6 +2,12 @@ const { getDb, nextId } = require('../data/store');
 const AppError = require('../utils/AppError');
 const { fechaLocal } = require('../utils/fechas');
 
+/**
+ * Calcula ventas, pagos y saldo esperado de caja para vendedor y fecha.
+ * @param {number} vendedorId Identificador del vendedor.
+ * @param {string} [fecha=fechaLocal()] Fecha de caja en zona horaria configurada.
+ * @returns {object} Conteos y totales del resumen diario.
+ */
 function resumen(vendedorId, fecha = fechaLocal()) {
   const db = getDb();
   const delDia = (iso) => fechaLocal(iso) === fecha;

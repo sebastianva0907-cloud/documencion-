@@ -17,6 +17,12 @@ function obtener(id) {
   return sorteo;
 }
 
+/**
+ * Crea un sorteo futuro en estado ABIERTO.
+ * @param {{tipo: string, nombre: string, fecha: string, acumulado?: number}} datos Datos del sorteo.
+ * @returns {object} Sorteo persistido en el almacén en memoria.
+ * @throws {AppError} Si el tipo, nombre o fecha no es válido.
+ */
 function crear({ tipo, nombre, fecha, acumulado = 0 }) {
   if (!TIPOS.includes(tipo)) throw new AppError('Tipo de sorteo inválido');
   if (!nombre) throw new AppError('El nombre es obligatorio');
@@ -44,6 +50,13 @@ function verificarVentaPermitida(sorteo, tipoEsperado) {
   }
 }
 
+/**
+ * Registra el resultado de un sorteo y liquida sus tiquetes activos.
+ * @param {number|string} id Identificador del sorteo.
+ * @param {string|object} resultado Resultado de chance o jugada de Baloto.
+ * @returns {object} Sorteo actualizado a estado JUGADO.
+ * @throws {AppError} Si no existe, ya fue jugado o el resultado no es válido.
+ */
 function registrarResultado(id, resultado) {
   const sorteo = obtener(id);
   if (sorteo.estado === 'JUGADO') throw new AppError('El sorteo ya tiene resultado', 409);

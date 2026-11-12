@@ -28,6 +28,12 @@ function generarAleatoria() {
   };
 }
 
+/**
+ * Valida una jugada Baloto o genera una jugada cuando se solicita al azar.
+ * @param {{aleatoria?: boolean, numeros?: number[], superbalota?: number}} jugada Datos de la jugada.
+ * @returns {{numeros: number[], superbalota: number}} Jugada normalizada.
+ * @throws {AppError} Si sus números o superbalota no cumplen los rangos y cardinalidad.
+ */
 function validarJugada(jugada) {
   if (jugada && jugada.aleatoria === true) return generarAleatoria();
 

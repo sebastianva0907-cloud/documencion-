@@ -17,6 +17,13 @@ function guardar(ticket) {
   return ticket;
 }
 
+/**
+ * Valida y registra un tiquete de chance para un vendedor.
+ * @param {{id: number}} vendedor Usuario que realiza la venta.
+ * @param {{sorteoId: number, apuestas: Array, cliente?: string}} datos Datos de la venta.
+ * @returns {object} Tiquete con código, apuestas, total y estado ACTIVO.
+ * @throws {AppError} Si el sorteo no admite ventas o alguna apuesta no es válida.
+ */
 function venderChance(vendedor, { sorteoId, apuestas, cliente }) {
   const sorteo = sorteos.obtener(sorteoId);
   sorteos.verificarVentaPermitida(sorteo, 'CHANCE');
@@ -108,6 +115,13 @@ function anular(codigo, usuario, motivo) {
   return ticket;
 }
 
+/**
+ * Registra el pago de un premio vigente y marca el tiquete como PAGADO.
+ * @param {string} codigo Código único del tiquete.
+ * @param {{id: number}} usuario Vendedor que efectúa el pago.
+ * @returns {{id: number, ticketId: number, codigo: string, usuarioId: number, valor: number, fecha: string}}
+ * @throws {AppError} Si no existe, no es pagable o el premio está caducado.
+ */
 function pagarPremio(codigo, usuario) {
   const ticket = buscar(codigo);
   const sorteo = sorteos.obtener(ticket.sorteoId);
